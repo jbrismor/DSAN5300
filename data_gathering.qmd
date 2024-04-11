@@ -1,0 +1,287 @@
+---
+title: "Spotify Data Gathering"
+subtitle: "DSAN 5300 Final Project"
+authors: ["Jorge Bris Moreno", "William McGloin", "Kangheng Liu", "Isfar Baset"]
+date: last-modified
+date-format: long
+format:
+  html:
+    self-contained: true
+    toc: true
+    code-overflow: wrap
+    code-fold: true
+---
+
+We first import relevant libraries and add in our spotify credentials
+
+```{r}
+# import libraries
+library(spotifyr)
+library(tidyverse)
+
+# set spotify api credentials
+Sys.setenv(SPOTIFY_CLIENT_ID = "8ed1bd4e6f51444f9352f0b25e5a4e50")
+Sys.setenv(SPOTIFY_CLIENT_SECRET = "2811308c30264efd862dc3b38f3dec1c")
+
+# authenticate
+access_token <- get_spotify_access_token()
+```
+
+Let's find spotify's top artists for 10 distinct genres
+
+```{r}
+# get top rock artists
+rock <- get_genre_artists(
+  genre = "rock",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+rock <- rock |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(rock, "genre_data/rock.csv", row.names = FALSE)
+```
+
+```{r}
+# get top country artists
+country <- get_genre_artists(
+  genre = "country",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+country <- country |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(country, "genre_data/country.csv", row.names = FALSE)
+```
+
+```{r}
+# get top pop artists
+pop <- get_genre_artists(
+  genre = "pop",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+pop <- pop |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(pop, "genre_data/pop.csv", row.names = FALSE)
+```
+
+```{r}
+# get top hip-hop artists
+hip_hop <- get_genre_artists(
+  genre = "hip hop",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+hip_hop <- hip_hop |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(hip_hop, "genre_data/hip_hop.csv", row.names = FALSE)
+```
+
+```{r}
+# get top rap artists
+rap <- get_genre_artists(
+  genre = "rap",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+rap <- rap |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(rock, "genre_data/rap.csv", row.names = FALSE)
+```
+
+```{r}
+# get top latin artists
+latin <- get_genre_artists(
+  genre = "latin",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+latin <- latin |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(latin, "genre_data/latin.csv", row.names = FALSE)
+```
+
+```{r}
+# get top edm artists
+edm <- get_genre_artists(
+  genre = "edm",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+edm <- edm |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(edm, "genre_data/edm.csv", row.names = FALSE)
+```
+
+```{r}
+# get top classical artists
+classical <- get_genre_artists(
+  genre = "classical",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+classical <- classical |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(classical, "genre_data/classical.csv", row.names = FALSE)
+```
+
+```{r}
+# get top soul artists
+soul <- get_genre_artists(
+  genre = "soul",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+soul <- soul |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(soul, "genre_data/soul.csv", row.names = FALSE)
+```
+
+```{r}
+# get top jazz artists
+jazz <- get_genre_artists(
+  genre = "jazz",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+jazz <- jazz |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(jazz, "genre_data/jazz.csv", row.names = FALSE)
+```
+
+Now we want to get the track data for each artist - two things to keep in mind -> we pull track information using artist id 
+
+
+TEMP LOAD CSVs BC KERNEL DIED
+
+```{r}
+rock <- read_csv('./genre_data/rock.csv', show_col_types = FALSE)
+country <- read_csv('./genre_data/country.csv', show_col_types = FALSE)
+pop <- read_csv('./genre_data/pop.csv', show_col_types = FALSE)
+hip_hop <- read_csv('./genre_data/hip_hop.csv', show_col_types = FALSE)
+rap <- read_csv('./genre_data/rap.csv', show_col_types = FALSE)
+latin <- read_csv('./genre_data/latin.csv', show_col_types = FALSE)
+edm <- read_csv('./genre_data/edm.csv', show_col_types = FALSE)
+classical <- read_csv('./genre_data/classical.csv', show_col_types = FALSE)
+soul <- read_csv('./genre_data/soul.csv', show_col_types = FALSE)
+jazz <- read_csv('./genre_data/jazz.csv', show_col_types = FALSE)
+```
+
+```{r}
+# extract names from genre data as list to then be fed into a for loop to extract tracks
+rock_artists <- as.list(rock$name)
+country_artists <- as.list(country$name)
+pop_artists <- as.list(pop$name)
+hip_hop_artists <- as.list(hip_hop$name)
+rap_artists <- as.list(rap$name)
+latin_artists <- as.list(latin$name)
+edm_artists <- as.list(edm$name)
+classical_artists <- as.list(classical$name)
+soul_artists <- as.list(soul$name)
+jazz_artists <- as.list(jazz$name)
+```
+
+```{r}
+# combine all artist lists into one
+all_artists <- c(rock_artists, country_artists, pop_artists, hip_hop_artists, rap_artists,
+                 latin_artists, edm_artists, classical_artists, soul_artists, jazz_artists)
+
+# remove duplicate entries
+all_artists <- unique(all_artists)
+```
+
+```{r}
+# loop through each artist to get track data and then save as csv
+for (artist in artists2) {
+  # replace spaces with underscores slashes with hyphens, and convert to lowercase for file name
+  artist_name_formatted <- tolower(gsub(" ", "_", gsub("/", "-", artist)))
+
+  # use spotifyr to get audio features (tracks) for the artist
+  artist_data <- get_artist_audio_features(artist)
+  
+  # delete album_images, artists, and available_markets columns
+  artist_data$album_images <- NULL
+  artist_data$artists <- NULL
+  artist_data$available_markets <- NULL
+  
+  # construct file path
+  file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+  
+  # save data to a CSV file in correct folder
+  write.csv(artist_data, file_path, row.names = FALSE)
+}
+```
+
+
+
+
+
+
+
+
+
+```{r}
+# cannot open connection to scrape data after 21 pulls.. sleeping for 3 seconds does not prevent hitting limit of concurrent connections for the api, so we will pull it in chunks of 20
+
+# split ll_artists list into chunks of 20
+split_list <- function(x, n) {
+  split(x, ceiling(seq_along(x)/n))
+}
+
+artist_chunks <- split_list(all_artists, 20)
+
+# dynamically create variables for each chunk
+for (i in seq_along(artist_chunks)) {
+  assign(paste0("artists", i), artist_chunks[[i]])
+}
+```
