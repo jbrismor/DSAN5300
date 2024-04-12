@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 # Define the path to the directory containing the CSV files
-input_directory = "./cleaned_track_data"  
-output_directory = "./clean_data/"  
+input_directory = "../data/modified_data/cleaned_track_data"  
+output_directory = "../data/modified_data/"  
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_directory):
@@ -56,4 +56,4 @@ mean_values_df = mean_values_df.astype(str)
 mean_values_df.to_csv(os.path.join(output_directory, "artist_profiles.csv"), index=False, quotechar='"')
 
 # Print completion message
-print("Aggregation complete. Mean and mode values CSV created in the cleaned_track_data directory.")
+print("Aggregation complete. Mean and mode values CSV created in the modified_data directory.")

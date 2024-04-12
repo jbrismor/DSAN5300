@@ -11,11 +11,11 @@ col_types <- cols(
 )
 
 # List all CSV files in the cleaned_track_data folder
-files <- list.files("cleaned_track_data", full.names = TRUE, pattern = "\\.csv$")
+files <- list.files("../data/modified_data/cleaned_track_data", full.names = TRUE, pattern = "\\.csv$")
 
 # Read each file and bind them into a single dataframe
 cleaned_tracks_alltogether <- files %>%
   map_df(~ read_csv(., col_types = col_types, show_col_types = FALSE))
 
 # Save the combined data to the new folder
-write_csv(cleaned_tracks_alltogether, "clean_data/all_tracks.csv")
+write_csv(cleaned_tracks_alltogether, "../data/modified_data/all_tracks.csv")

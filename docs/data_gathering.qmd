@@ -43,7 +43,7 @@ rock <- get_genre_artists(
 rock <- rock |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(rock, "genre_data/rock.csv", row.names = FALSE)
+write.csv(rock, "../data/raw_data/genre_data/rock.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -60,7 +60,7 @@ country <- get_genre_artists(
 country <- country |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(country, "genre_data/country.csv", row.names = FALSE)
+write.csv(country, "../data/raw_data/genre_data/country.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -77,7 +77,7 @@ pop <- get_genre_artists(
 pop <- pop |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(pop, "genre_data/pop.csv", row.names = FALSE)
+write.csv(pop, "../data/raw_data/genre_data/pop.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -94,7 +94,7 @@ hip_hop <- get_genre_artists(
 hip_hop <- hip_hop |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(hip_hop, "genre_data/hip_hop.csv", row.names = FALSE)
+write.csv(hip_hop, "../data/raw_data/genre_data/hip_hop.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -111,7 +111,7 @@ rap <- get_genre_artists(
 rap <- rap |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(rock, "genre_data/rap.csv", row.names = FALSE)
+write.csv(rock, "../data/raw_data/genre_data/rap.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -128,7 +128,7 @@ latin <- get_genre_artists(
 latin <- latin |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(latin, "genre_data/latin.csv", row.names = FALSE)
+write.csv(latin, "../data/raw_data/genre_data/latin.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -145,7 +145,7 @@ edm <- get_genre_artists(
 edm <- edm |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(edm, "genre_data/edm.csv", row.names = FALSE)
+write.csv(edm, "../data/raw_data/genre_data/edm.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -162,7 +162,7 @@ classical <- get_genre_artists(
 classical <- classical |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(classical, "genre_data/classical.csv", row.names = FALSE)
+write.csv(classical, "../data/raw_data/genre_data/classical.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -179,7 +179,7 @@ soul <- get_genre_artists(
 soul <- soul |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(soul, "genre_data/soul.csv", row.names = FALSE)
+write.csv(soul, "../data/raw_data/genre_data/soul.csv", row.names = FALSE)
 ```
 
 ```{r}
@@ -196,7 +196,7 @@ jazz <- get_genre_artists(
 jazz <- jazz |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(jazz, "genre_data/jazz.csv", row.names = FALSE)
+write.csv(jazz, "../data/raw_data/genre_data/jazz.csv", row.names = FALSE)
 ```
 
 Now we want to get the track data for each artist - two things to keep in mind -> we pull track information using artist id 
@@ -208,16 +208,16 @@ TEMP LOAD bc kernel died
  -- 
 
 ```{r}
-rock <- read_csv('./genre_data/rock.csv', show_col_types = FALSE)
-country <- read_csv('./genre_data/country.csv', show_col_types = FALSE)
-pop <- read_csv('./genre_data/pop.csv', show_col_types = FALSE)
-hip_hop <- read_csv('./genre_data/hip_hop.csv', show_col_types = FALSE)
-rap <- read_csv('./genre_data/rap.csv', show_col_types = FALSE)
-latin <- read_csv('./genre_data/latin.csv', show_col_types = FALSE)
-edm <- read_csv('./genre_data/edm.csv', show_col_types = FALSE)
-classical <- read_csv('./genre_data/classical.csv', show_col_types = FALSE)
-soul <- read_csv('./genre_data/soul.csv', show_col_types = FALSE)
-jazz <- read_csv('./genre_data/jazz.csv', show_col_types = FALSE)
+rock <- read_csv('../data/raw_data/genre_data/rock.csv', show_col_types = FALSE)
+country <- read_csv('../data/raw_data/genre_data/country.csv', show_col_types = FALSE)
+pop <- read_csv('../data/raw_data/genre_data/pop.csv', show_col_types = FALSE)
+hip_hop <- read_csv('../data/raw_data/genre_data/hip_hop.csv', show_col_types = FALSE)
+rap <- read_csv('../data/raw_data/genre_data/rap.csv', show_col_types = FALSE)
+latin <- read_csv('../data/raw_data/genre_data/latin.csv', show_col_types = FALSE)
+edm <- read_csv('../data/raw_data/genre_data/edm.csv', show_col_types = FALSE)
+classical <- read_csv('../data/raw_data/genre_data/classical.csv', show_col_types = FALSE)
+soul <- read_csv('../data/raw_data/genre_data/soul.csv', show_col_types = FALSE)
+jazz <- read_csv('../data/raw_data/genre_data/jazz.csv', show_col_types = FALSE)
 ```
 
 ```{r}
@@ -258,7 +258,7 @@ for (artist in all_artists) {
   artist_data$available_markets <- NULL
   
   # construct file path
-  file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+  file_path <- paste0("../data/raw_data/track_data/", artist_name_formatted, ".csv")
   
   # save data to a CSV file in correct folder
   write.csv(artist_data, file_path, row.names = FALSE)
@@ -301,7 +301,7 @@ for (artist in new_all_artists) {
   artist_data$available_markets <- NULL
   
   # construct file path
-  file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+  file_path <- paste0("../data/raw_data/track_data/", artist_name_formatted, ".csv")
   
   # save data to a CSV file in correct folder
   write.csv(artist_data, file_path, row.names = FALSE)
@@ -331,7 +331,7 @@ for (artist in new_new_all_artists) {
     artist_data$available_markets <- NULL
     
     # construct file path
-    file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+    file_path <- paste0("../data/raw_data/track_data/", artist_name_formatted, ".csv")
     
     # save data to csv in correct folder
     write.csv(artist_data, file_path, row.names = FALSE)
@@ -367,13 +367,13 @@ funk <- get_genre_artists(
 funk <- funk |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(funk, "genre_data/funk.csv", row.names = FALSE)
+write.csv(funk, "../data/raw_data/genre_data/funk.csv", row.names = FALSE)
 ```
 
 
 ```{r}
-soul <- read_csv('./genre_data/soul.csv', show_col_types = FALSE)
-jazz <- read_csv('./genre_data/jazz.csv', show_col_types = FALSE)
+soul <- read_csv('../data/raw_data/genre_data/soul.csv', show_col_types = FALSE)
+jazz <- read_csv('../data/raw_data/genre_data/jazz.csv', show_col_types = FALSE)
 ```
 
 ```{r}
@@ -411,7 +411,7 @@ for (artist in hopefully_last_artists) {
     artist_data$available_markets <- NULL
     
     # construct file path
-    file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+    file_path <- paste0("../data/raw_data/track_data/", artist_name_formatted, ".csv")
     
     # save data to csv in correct folder
     write.csv(artist_data, file_path, row.names = FALSE)
@@ -434,7 +434,7 @@ britney_bitch$artists <- NULL
 britney_bitch$available_markets <- NULL
 
 # save data to csv in correct folder
-write.csv(britney_bitch, 'track_data/britney_spears.csv', row.names = FALSE)
+write.csv(britney_bitch, '../data/raw_data/track_data/britney_spears.csv', row.names = FALSE)
 ```
 
 
@@ -558,11 +558,11 @@ madonna$available_markets <- NULL
 
 
 # save data to csv in correct folder
-write.csv(bob_dylan, 'track_data/bob_dylan.csv', row.names = FALSE)
-write.csv(elvis, 'track_data/elvis.csv', row.names = FALSE)
-write.csv(chuck_berry, 'track_data/chuck_berry.csv', row.names = FALSE)
-write.csv(beach_boys, 'track_data/beach_boys.csv', row.names = FALSE)
-write.csv(madonna, 'track_data/madonna.csv', row.names = FALSE)
+write.csv(bob_dylan, '../data/raw_data/track_data/bob_dylan.csv', row.names = FALSE)
+write.csv(elvis, '../data/raw_data/track_data/elvis.csv', row.names = FALSE)
+write.csv(chuck_berry, '../data/raw_data/track_data/chuck_berry.csv', row.names = FALSE)
+write.csv(beach_boys, '../data/raw_data/track_data/beach_boys.csv', row.names = FALSE)
+write.csv(madonna, '../data/raw_data/track_data/madonna.csv', row.names = FALSE)
 ```
 
 

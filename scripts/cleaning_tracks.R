@@ -1,11 +1,11 @@
 library(dplyr)
 
-# Get the list of files in the temp_rock_data folder
-files <- list.files("track_data", full.names = TRUE)
+# Get the list of files in the raw track_data folder
+files <- list.files("../data/raw_data/track_data", full.names = TRUE)
 
 # Create a new folder called cleaned_track_data
-if (!dir.exists("cleaned_track_data")) {
-  dir.create("cleaned_track_data")
+if (!dir.exists("../data/modified_data/cleaned_track_data")) {
+  dir.create("../data/modified_data/cleaned_track_data")
 }
 
 # Loop through each file
@@ -30,5 +30,5 @@ for (file in files) {
     select(-album_type, -album_release_date, -album_release_date_precision, -analysis_url, -disc_number, -explicit, -track_href, -is_local, -track_preview_url, -track_number, -type, -track_uri, -external_urls.spotify, -key_name, -mode_name, -key, -mode)
 
   # Save the cleaned data to the new folder
-  write.csv(data, paste0("cleaned_track_data/", basename(file)), row.names = FALSE)
+  write.csv(data, paste0("../data/modified_data/cleaned_track_data/", basename(file)), row.names = FALSE)
 }
