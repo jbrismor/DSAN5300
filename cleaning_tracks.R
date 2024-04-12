@@ -1,20 +1,30 @@
-# get the list of files in the temp_rock_data folder
+library(dplyr)
+
+# Get the list of files in the temp_rock_data folder
 files <- list.files("track_data", full.names = TRUE)
 
-# create a new folder called cleaned_rock_data
-dir.create("cleaned_rock_data")
+# Create a new folder called cleaned_track_data
+if (!dir.exists("cleaned_track_data")) {
+  dir.create("cleaned_track_data")
+}
 
-# loop through each file
+# Loop through each file
 for (file in files) {
-  # read the file
+  # Read the file
   data <- read.csv(file)
-  
-  # remove rows with "-" in "track_name" column
+
+  # Remove rows with "-" in "track_name" column
   data <- data[!grepl("-", data$track_name), ]
 
-  # If duplicates in names are found, remove the one with the newest date in the column "album_release_date"
-  data <- data[!duplicated(data$track_name, fromLast = TRUE), ]
-  
-  # save the cleaned data to the new folder
+  # Ensure the album_release_date is in Date format
+  data$album_release_date <- as.Date(data$album_release_date)
+
+  # If duplicates in names are found, remove the one with the newest date
+  data <- data %>%
+    group_by(track_name) %>%
+    filter(album_release_date == min(album_release_date)) %>%
+    ungroup()
+
+  # Save the cleaned data to the new folder
   write.csv(data, paste0("cleaned_track_data/", basename(file)), row.names = FALSE)
 }
