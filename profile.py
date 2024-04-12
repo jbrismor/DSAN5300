@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 # Define the path to the directory containing the CSV files
-input_directory = "./cleaned_rock_data"  
-output_directory = "./"  
+input_directory = "./cleaned_track_data"  
+output_directory = "./artist_profiles/"  
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_directory):
@@ -18,10 +18,10 @@ mean_columns = ["danceability", "energy", "key", "loudness", "mode",
                 "liveness", "valence", "tempo", "duration_ms"]
 
 # Define the columns for which we want to calculate the mode
-mode_columns = ["key_mode", "time_signature", "explicit"]
+mode_columns = ["key_mode", "time_signature"]
 
 # Initialize an empty list to store the results
-mean_values_list = []
+values_list = []
 
 # Iterate over each file
 for file_path in file_list:
@@ -41,10 +41,10 @@ for file_path in file_list:
     combined = pd.concat([artist_info, means, modes]).to_frame().T
     
     # Append to the list
-    mean_values_list.append(combined)
+    values_list.append(combined)
 
 # Combine all the dataframes in the list into one dataframe
-mean_values_df = pd.concat(mean_values_list, ignore_index=True)
+mean_values_df = pd.concat(values_list, ignore_index=True)
 
 # Set the column names for the result dataframe
 mean_values_df.columns = ["artist_name", "artist_id"] + mean_columns + mode_columns
@@ -56,4 +56,4 @@ mean_values_df = mean_values_df.astype(str)
 mean_values_df.to_csv(os.path.join(output_directory, "aggregated.csv"), index=False, quotechar='"')
 
 # Print completion message
-print("Aggregation complete. Mean and mode values CSV created in the cleaned_rock_data directory.")
+print("Aggregation complete. Mean and mode values CSV created in the cleaned_track_data directory.")

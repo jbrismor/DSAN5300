@@ -1,0 +1,2 @@
+"artist_name","artist_id","album_id","album_release_year","danceability","energy","key","loudness","mode","speechiness","acousticness","instrumentalness","liveness","valence","tempo","track_id","time_signature","duration_ms","track_name","album_name","key_mode"
+"The Smiths","3yY2gUcIsjMr8hjo51PoJ8","5DM1qCdgGt2zbknnsVn1Ca",1985,0.165,0.709,1,-7.409,0,0.0564,0.0167,0.000257,0.286,0.338,57.02,"48veRDsAEBOJJnVnnabV99",4,297586,"That Joke Isn't Funny Anymore","Meat Is Murder","C# minor"
