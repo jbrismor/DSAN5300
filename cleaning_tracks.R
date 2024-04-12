@@ -25,6 +25,10 @@ for (file in files) {
     filter(album_release_date == min(album_release_date)) %>%
     ungroup()
 
+  # drop columns (unwanted or not informative for our purposes): album_type, album_release_date, album_release_date_precision, analysis_url, disc_number, explicit, track_href, is_local, track_preview_url, track_number, type, track_uri, external_urls.spotify, key_name, mode_name
+  data <- data %>%
+    select(-album_type, -album_release_date, -album_release_date_precision, -analysis_url, -disc_number, -explicit, -track_href, -is_local, -track_preview_url, -track_number, -type, -track_uri, -external_urls.spotify, -key_name, -mode_name)
+
   # Save the cleaned data to the new folder
   write.csv(data, paste0("cleaned_track_data/", basename(file)), row.names = FALSE)
 }
