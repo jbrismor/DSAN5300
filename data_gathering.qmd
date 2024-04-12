@@ -202,7 +202,10 @@ write.csv(jazz, "genre_data/jazz.csv", row.names = FALSE)
 Now we want to get the track data for each artist - two things to keep in mind -> we pull track information using artist id 
 
 
-TEMP LOAD CSVs BC KERNEL DIED
+TEMP LOAD bc kernel died 
+
+ XX
+ -- 
 
 ```{r}
 rock <- read_csv('./genre_data/rock.csv', show_col_types = FALSE)
@@ -242,7 +245,7 @@ all_artists <- unique(all_artists)
 
 ```{r}
 # loop through each artist to get track data and then save as csv
-for (artist in artists2) {
+for (artist in all_artists) {
   # replace spaces with underscores slashes with hyphens, and convert to lowercase for file name
   artist_name_formatted <- tolower(gsub(" ", "_", gsub("/", "-", artist)))
 
@@ -263,25 +266,306 @@ for (artist in artists2) {
 ```
 
 
-
-
-
-
-
+Rate Limit hit for API -> switching keys LMAOOOOOOOOOOOOOOOO
 
 
 ```{r}
-# cannot open connection to scrape data after 21 pulls.. sleeping for 3 seconds does not prevent hitting limit of concurrent connections for the api, so we will pull it in chunks of 20
+all_artists[[120]]
+```
 
-# split ll_artists list into chunks of 20
-split_list <- function(x, n) {
-  split(x, ceiling(seq_along(x)/n))
-}
+```{r}
+new_all_artists <- all_artists[120:length(all_artists)]
+```
 
-artist_chunks <- split_list(all_artists, 20)
+```{r}
+# set spotify api credentials
+Sys.setenv(SPOTIFY_CLIENT_ID = "7a1d4f939a1f4e9989be940adaeb2999")
+Sys.setenv(SPOTIFY_CLIENT_SECRET = "8ee692b4b7614330b398f54b98a0f631")
 
-# dynamically create variables for each chunk
-for (i in seq_along(artist_chunks)) {
-  assign(paste0("artists", i), artist_chunks[[i]])
+# authenticate
+access_token <- get_spotify_access_token()
+```
+
+```{r}
+# loop through each artist to get track data and then save as csv
+for (artist in new_all_artists) {
+  # replace spaces with underscores slashes with hyphens, and convert to lowercase for file name
+  artist_name_formatted <- tolower(gsub(" ", "_", gsub("/", "-", artist)))
+
+  # use spotifyr to get audio features (tracks) for the artist
+  artist_data <- get_artist_audio_features(artist)
+  
+  # delete album_images, artists, and available_markets columns
+  artist_data$album_images <- NULL
+  artist_data$artists <- NULL
+  artist_data$available_markets <- NULL
+  
+  # construct file path
+  file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+  
+  # save data to a CSV file in correct folder
+  write.csv(artist_data, file_path, row.names = FALSE)
 }
 ```
+
+no data for one of the least popular hip hop artists... changing function to accept errors. need to change starting point
+
+```{r}
+new_new_all_artists <- new_all_artists[73:length(new_all_artists)] # great name for the list, right????
+```
+
+
+```{r}
+# loop through each artist to get track data and then save as csv
+for (artist in new_new_all_artists) {
+  # replace spaces with underscores and slashes with hyphens, and convert to lowercase for the file name
+  artist_name_formatted <- tolower(gsub(" ", "_", gsub("/", "-", artist)))
+  
+  # attempt to get audio features for the artist
+  tryCatch({ 
+    artist_data <- get_artist_audio_features(artist)
+    
+    # If successful, delete unwanted columns
+    artist_data$album_images <- NULL
+    artist_data$artists <- NULL
+    artist_data$available_markets <- NULL
+    
+    # construct file path
+    file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+    
+    # save data to csv in correct folder
+    write.csv(artist_data, file_path, row.names = FALSE)
+  }, error = function(e) {
+    message(paste("No data for artist:", artist, "; skipping..."))
+  })
+}
+```
+
+getting classical data caused us to hit the rate limit once again - mozart is too much of a beast. we are going to now use a third api key and switch classical to funk (cuz we're feeling funky), deleting the two classical artists we had previously
+
+
+```{r}
+# set spotify api credentials
+Sys.setenv(SPOTIFY_CLIENT_ID = "a684933cbff543e08213060e872e4bd5")
+Sys.setenv(SPOTIFY_CLIENT_SECRET = "f4f8222c1dfd42d8a9cd1fefd179d5be")
+
+# authenticate
+access_token <- get_spotify_access_token()
+```
+
+```{r}
+# get top funk artists
+funk <- get_genre_artists(
+  genre = "funk",
+  market = NULL,
+  limit = 50,
+  offset = 0,
+  authorization = get_spotify_access_token()
+)
+
+# only keep necessary columns
+funk <- funk |> select(id, name, popularity, followers.total, genre)
+
+# save to csv
+write.csv(funk, "genre_data/funk.csv", row.names = FALSE)
+```
+
+
+```{r}
+soul <- read_csv('./genre_data/soul.csv', show_col_types = FALSE)
+jazz <- read_csv('./genre_data/jazz.csv', show_col_types = FALSE)
+```
+
+```{r}
+soul_artists <- as.list(soul$name)
+jazz_artists <- as.list(jazz$name)
+funk_artists <- as.list(funk$name)
+```
+
+
+```{r}
+# remove names from funk_artists that exist in all_artists
+funk_artists <- setdiff(funk_artists, all_artists)
+
+# soul and jazz
+soul_and_jazz_artists <- all_artists[320:length(all_artists)]
+
+# combine lists
+hopefully_last_artists <- c(funk_artists, soul_and_jazz_artists)
+```
+
+
+```{r}
+# loop through each artist to get track data and then save as csv
+for (artist in hopefully_last_artists) {
+  # replace spaces with underscores and slashes with hyphens, and convert to lowercase for the file name
+  artist_name_formatted <- tolower(gsub(" ", "_", gsub("/", "-", artist)))
+  
+  # attempt to get audio features for the artist
+  tryCatch({ 
+    artist_data <- get_artist_audio_features(artist)
+    
+    # If successful, delete unwanted columns
+    artist_data$album_images <- NULL
+    artist_data$artists <- NULL
+    artist_data$available_markets <- NULL
+    
+    # construct file path
+    file_path <- paste0("track_data/", artist_name_formatted, ".csv")
+    
+    # save data to csv in correct folder
+    write.csv(artist_data, file_path, row.names = FALSE)
+  }, error = function(e) {
+    message(paste("No data for artist:", artist, "; skipping..."))
+  })
+}
+```
+
+
+there is no britney spears and that is a god damn travesty. we need to add her in manually now
+
+```{r}
+# fixing the world, one problem at a time
+britney_bitch <- get_artist_audio_features('britney spears')
+
+# delete unwanted columns
+britney_bitch$album_images <- NULL
+britney_bitch$artists <- NULL
+britney_bitch$available_markets <- NULL
+
+# save data to csv in correct folder
+write.csv(britney_bitch, 'track_data/britney_spears.csv', row.names = FALSE)
+```
+
+
+
+we've lost 6 artists so far due to having none or limited data -> we also replaced classical data with funk... how many artists do we have? 
+
+
+```{r}
+# combine all artist lists into one
+final_artist_list <- c(rock_artists, country_artists, pop_artists, hip_hop_artists, rap_artists,
+                 latin_artists, edm_artists, soul_artists, jazz_artists, funk_artists)
+
+# remove duplicate entries
+final_artist_list <- unique(final_artist_list)
+
+length(final_artist_list)-7+1
+```
+
+let's get to 400 artists -> use the rollings stones top 100 list
+
+bob dylan
+elvis
+chuck berry
+bob marley
+beach boys
+
+```{r}
+bob_dylan <- get_artist_audio_features('bob dylan')
+elvis <- get_artist_audio_features('elvis')
+chuck_berry <- get_artist_audio_features('chuck berry')
+bob_marley <- get_artist_audio_features('bob marley')
+```
+
+
+another api key!!!! thats 4!!!!!
+
+```{r}
+# set spotify api credentials
+Sys.setenv(SPOTIFY_CLIENT_ID = "c6e68d43258c42c697c47bae6c26783f")
+Sys.setenv(SPOTIFY_CLIENT_SECRET = "bd115ef3723241b1a2f7b98502bfe224")
+
+# authenticate
+access_token <- get_spotify_access_token()
+```
+
+
+```{r}
+beach_boys <- get_artist_audio_features('beach boys')
+```
+
+
+checking they belong in one of our ten genres
+
+bob dylan - rock
+
+```{r}
+get_artist('74ASZWbe4lXaubB36ztrGX', authorization = get_spotify_access_token())
+```
+
+elvis - rock 
+
+```{r}
+get_artist('43ZHCT0cAZBISjO8DG9PnE', authorization = get_spotify_access_token())
+```
+
+chuck berry - rock
+
+```{r}
+get_artist('293zczrfYafIItmnmM3coR', authorization = get_spotify_access_token())
+```
+
+bob marley - reggee -> cant be used bc he doesnt fall under one of our target genres
+
+```{r}
+get_artist('2QsynagSdAqZj3U9HgDzjD', authorization = get_spotify_access_token())
+```
+
+beach boys - rock
+
+```{r}
+get_artist('3oDbviiivRWhXwIE8hxkVV', authorization = get_spotify_access_token())
+```
+
+britney spears - pop
+
+```{r}
+get_artist('26dSoYclwsYLMAKD3tpOr4', authorization = get_spotify_access_token())
+```
+
+
+finally we add madonna - pop
+
+```{r}
+madonna <- get_artist_audio_features('madonna')
+```
+
+
+```{r}
+get_artist('6tbjWDEIzxoDsBA1FuhfPW', authorization = get_spotify_access_token())
+```
+
+adding the last five artists... that means we added 6 extra total
+
+```{r}
+# delete unwanted columns
+bob_dylan$album_images <- NULL
+bob_dylan$artists <- NULL
+bob_dylan$available_markets <- NULL
+elvis$album_images <- NULL
+elvis$artists <- NULL
+elvis$available_markets <- NULL
+chuck_berry$album_images <- NULL
+chuck_berry$artists <- NULL
+chuck_berry$available_markets <- NULL
+beach_boys$album_images <- NULL
+beach_boys$artists <- NULL
+beach_boys$available_markets <- NULL
+madonna$album_images <- NULL
+madonna$artists <- NULL
+madonna$available_markets <- NULL
+
+
+# save data to csv in correct folder
+write.csv(bob_dylan, 'track_data/bob_dylan.csv', row.names = FALSE)
+write.csv(elvis, 'track_data/elvis.csv', row.names = FALSE)
+write.csv(chuck_berry, 'track_data/chuck_berry.csv', row.names = FALSE)
+write.csv(beach_boys, 'track_data/beach_boys.csv', row.names = FALSE)
+write.csv(madonna, 'track_data/madonna.csv', row.names = FALSE)
+```
+
+
+
+
+
