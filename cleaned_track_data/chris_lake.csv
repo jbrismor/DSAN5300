@@ -1,2 +1,2 @@
-"artist_name","artist_id","album_id","album_release_year","danceability","energy","key","loudness","mode","speechiness","acousticness","instrumentalness","liveness","valence","tempo","track_id","time_signature","duration_ms","track_name","album_name","key_mode"
-"Chris Lake","5Igpc9iLZ3YGtKeYfSrrOE","74E19vt4CK4rHhIzw1hBAC",2010,0.791,0.982,0,-4.403,1,0.0614,0.0168,0.678,0.0731,0.35,128.01,"4tvnMCFnbjJngcYJB1kzPs",4,451042,"Running Out","Running Out","C major"
+"artist_name","artist_id","album_id","album_release_year","danceability","energy","loudness","speechiness","acousticness","instrumentalness","liveness","valence","tempo","track_id","time_signature","duration_ms","track_name","album_name","key_mode"
+"Chris Lake","5Igpc9iLZ3YGtKeYfSrrOE","74E19vt4CK4rHhIzw1hBAC",2010,0.791,0.982,-4.403,0.0614,0.0168,0.678,0.0731,0.35,128.01,"4tvnMCFnbjJngcYJB1kzPs",4,451042,"Running Out","Running Out","C major"
