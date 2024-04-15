@@ -111,7 +111,7 @@ rap <- get_genre_artists(
 rap <- rap |> select(id, name, popularity, followers.total, genre)
 
 # save to csv
-write.csv(rock, "../data/raw_data/genre_data/rap.csv", row.names = FALSE)
+write.csv(rap, "../data/raw_data/genre_data/rap.csv", row.names = FALSE)
 ```
 
 ```{r}
