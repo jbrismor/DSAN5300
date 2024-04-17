@@ -13,4 +13,6 @@ Brief summary for navigating the repo:
   1. `binning.py` for the track data (decades)
   2. `fixing_labels.ipynb` for the artist-level data to assign genres
 - All data can be found in the data folder
-- Next task: classification!!
+- Classification has been done in the files with "classification" in the name
+- Final poster can be found in the Poster folder
+- Final report can be found in the Report folder
