@@ -18,9 +18,6 @@ In this project, our group endeavors to bridge the gap between music and data sc
 # Our Data
 To tackle this project, we utilized the spotifyr package to extract data for the top 50 artists across ten popular genres, resulting in an initial dataset that included over 400 artists. We then expanded our dataset by extracting every track for these artists, although we had to clean and preprocess the data due to duplicates and corrupted information. This process left us with a final dataset comprising approximately 50,000 tracks from roughly 400 artists. Additionally, we introduced a new variable, 'decade,' by binning song release dates, which was crucial for our subsequent temporal analysis.
 
-# Methodology
-Our methodology involved several key steps: data aggregation, cleaning, and establishing classification labels. For artist-level data, we averaged the Spotify metrics to create a singular profile per artist, assuming a consistent style across their work. For genre classification, we started with multiple genres per artist but narrowed it down to one primary genre due to significant overlap and the limitations of our dataset size. We applied various machine learning models—logistic regression, support vector machines, neural networks, random forests, and XGBoost, all with hyperparameter tuning—to predict genres and decades, adapting our approach based on the peculiarities of each dataset level (artist vs. track).
-
 # Exploratory Data Analysis
 ![](../images/decade_distribution.png)
 
@@ -30,8 +27,10 @@ The above graph displays the number of tracks in each decade within our dataset.
 
 This heat map allows us to explore values of the assorted metrics, compare them between genres, and gain a better understanding the various distributions. With many of the metrics having similar values across genres, classification becomes a harder task. 
 
+# Methodology
+Our methodology involved several key steps: data aggregation, cleaning, and establishing classification labels. For artist-level data, we averaged the Spotify metrics to create a singular profile per artist, assuming a consistent style across their work. For genre classification, we started with multiple genres per artist but narrowed it down to one primary genre due to significant overlap and the limitations of our dataset size. We applied various machine learning models—logistic regression, support vector machines, neural networks, random forests, and XGBoost, all with hyperparameter tuning—to predict genres and decades, adapting our approach based on the peculiarities of each dataset level (artist vs. track).
 
-# Explanations of ML Methods
+# ML Methods
 We employed a variety of machine learning models to tackle the classification tasks, each chosen for its unique strengths in handling complex patterns within large datasets:
 
 1.	Logistic Regression: A straightforward yet powerful model used primarily for binary classification. For our multi-class classification tasks, we utilized the One-vs-Rest (OVR) strategy to extend logistic regression's capabilities.
