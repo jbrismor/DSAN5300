@@ -42,7 +42,76 @@ We employed a variety of machine learning models to tackle the classification ta
 Each model was rigorously tuned with hyperparameters to optimize performance, ensuring that our classifications were accurate and reflected the underlying data complexities.
 
 # Classification: Genre
-The genre classification at the artist level proved to be quite successful, routinely achieving test accuracies over 75%, with logistic regression peaking at 81%. This was significantly higher than a baseline model of random guessing, indicative of the effectiveness of our feature selection and machine learning techniques. The track-level genre classification, however, performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost.
+
+In our project, we implemented two distinct strategies for our genre classification tasks. The first approach involved classifying music artists into various genres based on a range of features and datasets specifically about the artists. The second strategy was aimed at identifying the genre of music tracks themselves, using the distinct characteristics and features of the tracks. Each method utilized tailored datasets and features, appropriate for classifying either at the artist level or the track level, to achieve accurate genre categorization.
+
+## Artist Level Genre Clasification
+
+### Data Setup 
+
+In the initial steps of our project, we utilized essential Python libraries, such as `numpy` and `pandas`, which are crucial for numerical operations and data manipulation respectively. We loaded our primary dataset, `artists.csv`, into a pandas DataFrame. This dataset contains detailed information about music artists, including their names and associated genres. An immediate examination of the dataset provided an understanding of its structure, which includes various columns critical to our analysis.
+
+### Data Exploration and Cleansing
+
+During our data exploration phase, we identified rows where the genre information was missing key data for our genre classification model. Specific corrections included rectifying genre assignments for artists like "The Beach Boys" and removing entries which deemed irrelevant, such as "Roger Miller". This cleansing step ensured the accuracy and reliability of our dataset, setting a solid foundation for further analysis and modeling.
+
+### Integration and Processing of Genre-Specific Data
+
+To enhance our dataset and refine our artist-level genre classification approach, we integrated additional genre-specific datasets. These datasets, representing genres such as country, rock, and hip-hop were utilized to assign rankings to artists based on their popularity or influence within those genres. These rankings are crucial for determining the primary genre of artists associated with multiple genres, providing a more nuanced and quantitative approach to our analysis.
+
+### Genre Classification Logic
+
+We established a robust methodology for determining an artist's primary genre. By leveraging the ranking system developed from genre-specific datasets, we created a function capable of comparing an artist's rank across different genres. This function identifies the genre in which an artist has the highest ranking as their primary genre. It also includes logic to handle cases where an artist's primary genre is not very obvious, marking these instances for further review. This ensures that our genre classifications are as accurate and reflective of the data as possible.
+
+### Feature Engineering and Data Integration
+
+Following the classification logic, extensive feature engineering and the integration of additional data sources were conducted. We updated our main DataFrame by applying the primary genre determination, ensuring each artist's record was accurately reflected. Additional features that could influence genre classification, such as historical data trends and artist-specific metrics, were also merged. This comprehensive approach to data preparation prepared our dataset for effective machine learning applications.
+
+### Machine Learning Preparation
+
+We prepared our dataset for machine learning by splitting it into training and test sets—a standard practice to evaluate a model's performance on unseen data. We also converted categorical variables into a numerical format using techniques such as one-hot encoding. These transformations are crucial for training machine learning models that require numerical input, setting the stage for robust model training.
+
+### Model Training and Evaluation
+
+In this section of our project, we evaluated several machine learning models in order to determine the most effective approach for classifying music genres based on artist data. Each model was assessed based on its accuracy and computation time which are both crucial factors in practical applications. Below is a summary of the outcomes for each model:
+
+#### Logistic Regression
+- **Test Accuracy**: 81.03%
+- **Computation Time**: 3.2 seconds
+- **Comments**: Logistic Regression provided a robust balance between speed and accuracy, proving to be highly efficient for scenarios where prompt results are necessary without a significant compromise on performance.
+
+#### Support Vector Machine (SVM)
+- **Test Accuracy**: 77.59%
+- **Computation Time**: 3.4 seconds
+- **Comments**: SVM displayed slightly lower accuracy compared to Logistic Regression and had a comparable speed. It's generally well-suited for linearly separable data but showed moderate performance in our multi-class classification task.
+
+#### Neural Network
+- **Train Accuracy**: 68.85%
+- **Test Accuracy**: 70.69%
+- **Computation Time**: 11 minutes 46.2 seconds
+- **Comments**: The Neural Network required considerably more time to train and yielded lower accuracy. This model may benefit from further tuning of hyperparameters or adjustments in the network architecture to enhance its efficacy.
+
+#### Random Forest
+- **Test Accuracy**: 79.31%
+- **Computation Time**: 1 minute 6.4 seconds
+- **Comments**: Random Forest achieved good accuracy, suggesting effective handling of the diverse and feature-rich data through its ensemble method. The computational time was reasonable for an ensemble approach, making it a strong contender.
+
+#### XGBoost
+- **Test Accuracy**: 77.59%
+- **Computation Time**: 24.5 seconds
+- **Comments**: XGBoost is well-known for its high performance in structured data problems. Here it offered competitive accuracy with SVM but required longer training time. Its capability to manage various data structures efficiently makes it a valuable model despite the higher computational cost.
+
+
+### Hyperparameter Tuning
+
+We implemented a grid search to fine tune the model's hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset and artist based genre classification task. The best parameters were then re-evaluated using the test set to confirm the model's improved accuracy and predictive capabilities. The results provided a definitive assessment of our model's performance and its ability to generalize on new data.
+
+### Conclusion
+
+The genre classification at the artist level proved to be quite successful, routinely achieving test accuracies over 75%, with logistic regression peaking at 81%. This was significantly higher than a baseline model of random guessing, indicative of the effectiveness of our feature selection and machine learning techniques. 
+
+## Track Level Genre Classification
+The track-level genre classification, however, performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost.
 
 # Classification: Decade
 Decade classification posed a more significant challenge, primarily due to the imbalanced nature of our data—most tracks were from recent decades. After downsampling to even out the class distribution for the training data, we achieved modest accuracies of around 38%, with random forests and XGBoost being the top performers. Notably, when we filtered the dataset to include only rock genre tracks, the accuracy improved, suggesting genre-specific characteristics can significantly influence the success of decade classification.
