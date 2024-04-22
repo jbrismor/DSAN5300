@@ -121,6 +121,14 @@ In this initial phase, we loaded essential Python libraries necessary for our an
 Data quality is paramount, hence we performed rigorous cleaning and preprocessing of our dataset. This included handling missing values, particularly in the genre column, and removing anomalies. We adjusted data types for better computational efficiency and prepared categorical data for future machine learning processes.
 
 
+### Integration and Processing of Genre-Specific Data
+
+### Genre Classification Logic
+
+### Feature Engineering and Data Integration
+
+### Machine Learning Preparation
+
 ### Model Training and Evaluation
 
 In this phase, we trained and evaluated several machine learning models to classify tracks into genres. Each model's performance was assessed based on accuracy and computation time. Here is a summary of how each model performed:
