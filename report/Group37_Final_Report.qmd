@@ -111,7 +111,43 @@ We implemented a grid search to fine tune the model's hyperparameters and optimi
 The genre classification at the artist level proved to be quite successful, routinely achieving test accuracies over 75%, with logistic regression peaking at 81%. This was significantly higher than a baseline model of random guessing, indicative of the effectiveness of our feature selection and machine learning techniques. 
 
 ## Track Level Genre Classification
-The track-level genre classification, however, performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost.
+
+### Data Setup
+
+In this initial phase, we loaded essential Python libraries necessary for our analysis: `numpy` for numerical operations and `pandas` for data manipulation. We then proceeded to load our primary dataset from `tracks.csv`, which encompasses detailed information about music tracks, including artist names and associated genres. A preliminary review of the dataset helped us understand its structure, critical for our downstream analysis.
+
+### Data Cleaning and Preprocessing
+
+Data quality is paramount, hence we performed rigorous cleaning and preprocessing of our dataset. This included handling missing values, particularly in the genre column, and removing anomalies. We adjusted data types for better computational efficiency and prepared categorical data for future machine learning processes.
+
+
+### Model Training and Evaluation
+
+In this phase, we trained and evaluated several machine learning models to classify tracks into genres. Each model's performance was assessed based on accuracy and computation time. Here is a summary of how each model performed:
+
+#### Logistic Regression
+- **Test Accuracy**: 51.38%
+- **Computation Time**: 6 minutes 3.89 seconds
+
+#### Support Vector Machine (SVM)
+- **Test Accuracy**: 54.89%
+- **Computation Time**: 80 minutes 4.4 seconds
+
+#### Neural Network
+- **Train Accuracy**: 54.45%
+- **Test Accuracy**: 49.18%
+- **Computation Time**: Approximately 44 minutes
+
+#### Random Forest
+- **Test Accuracy**: 61.68%
+- **Computation Time**: 46 minutes 49.8 seconds
+
+#### XGBoost
+- **Test Accuracy**: 63.03%
+- **Computation Time**: 2 minutes 51.4 seconds
+
+### Conclusion
+The track-level genre classification performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost.
 
 # Classification: Decade
 Decade classification posed a more significant challenge, primarily due to the imbalanced nature of our data—most tracks were from recent decades. After downsampling to even out the class distribution for the training data, we achieved modest accuracies of around 38%, with random forests and XGBoost being the top performers. Notably, when we filtered the dataset to include only rock genre tracks, the accuracy improved, suggesting genre-specific characteristics can significantly influence the success of decade classification.
