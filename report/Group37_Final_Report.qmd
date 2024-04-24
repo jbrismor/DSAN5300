@@ -170,11 +170,68 @@ We performed hyperparameter tuning using techniques like GridSearchCV to optimiz
 The track-level genre classification performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost. This suggests that while machine learning can significantly aid in genre classification, the complex nature of music genres often requires more sophisticated models or multi-modal data integration to improve accuracy.
 
 # Classification: Decade
-Decade classification posed a more significant challenge, primarily due to the imbalanced nature of our data—most tracks were from recent decades. After downsampling to even out the class distribution for the training data, we achieved modest accuracies of around 38%, with random forests and XGBoost being the top performers. Notably, when we filtered the dataset to include only rock genre tracks, the accuracy improved, suggesting genre-specific characteristics can significantly influence the success of decade classification.
+In this phase, we implemented two distinct strategies for our decade classification tasks. The first approach involved classifying the decades of all the music tracks that we had. The second strategy was aimed at identifying the decades of the tracks in just one genre in order to explore the differences with the previous approach. Each method utilized tailored datasets and features, appropriate for classifying decades either at the non genre specific level or the genre specific level, to achieve accurate decade categorization. The genre picked for this testing was “Rock”, since it accounted for the most tracks in our dataset.
+
+
+### Data Setup
+Since the data was imbalanced for different genres, we believed this could be an issue as different genres developed differently throughout the years. For that reason, we downsample to have the same amount of data during training for each genre.
+
+
+### Machine Learning Preparation
+Same as with genre classification, we prepared our dataset for machine learning by splitting it into training and test sets—a standard practice to evaluate a model's performance on unseen data. We also converted categorical variables into a numerical format using techniques such as one-hot encoding. These transformations are crucial for training machine learning models that require numerical input, setting the stage for robust model training.
+
+
+### Model Training and Evaluation
+In this section of our project, we evaluated several machine learning models in order to determine the most effective approach for classifying decades when music tracks were released based on the track metadata. Each model was assessed based on its accuracy and computation time which are both crucial factors in practical applications. Below is a summary of the outcomes for each model:
+
+
+#### Logistic Regression
+- **Test Accuracy**:%
+- **Computation Time**: 
+- **Comments**: 
+
+
+#### Support Vector Machine (SVM)
+- **Test Accuracy**:%
+- **Computation Time**: 
+- **Comments**: 
+
+
+#### Neural Network
+- **Train Accuracy**:%
+- **Test Accuracy**:%
+- **Computation Time**: 
+- **Comments**: 
+
+
+#### Random Forest
+- **Test Accuracy**:%
+- **Computation Time**: 
+- **Comments**: 
+
+
+#### XGBoost
+- **Test Accuracy**:%
+- **Computation Time**: 
+- **Comments**: 
+
+
+### Hyperparameter Tuning
+We implemented a grid search to fine tune the model's hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset. However, as seen above, this identification seemed to not work properly. This might be due to the close similarities between the tracks among different decades.
+
+
+### Findings
+While the models do not seem to work very efficiently, it is worth looking into what features are the most deterministic in predicting decades, as these woulñd be the ones that changed the most overtime.
+
 
 ![](../images/decade_feature_importance.png)
 
-The Random Forest Classifier provides insights into which variables most significantly impact the determination of a track's decade, highlighting the notable changes over time. Additionally, the plot above also allows for the comparison of various models' accuracies and runtimes. While these models aren't highly accurate, they notably outperform a random classifier, doubling accuracy in some instances.
+
+The Random Forest Classifier provides insights into which variables most significantly impact the determination of a track's decade, highlighting the notable changes over time.
+
+
+### Conclusion
+Our findings show that metadata from tracks is not enough to predict the decade when they were released. However, it is worth noting that the models outperform a random classifier by a great amount. This is probably due to the slight changes overtime, but accuracy improves if the models just focus on one specific genre. This is interesting moving forward as different genres seem to have developed differently from each other over time. Thus, in future exploration, it will be worth exploring tracks from different genres separately.
 
 # Conclusion
 Our findings demonstrate a promising but challenging path forward in classifying music data. While we achieved notable success in classifying artists into genres, decade classification could have performed better, highlighting the complexity of temporal influences in music. The variability within an artist's work across different songs suggests a potential for future research to refine track-level classifications. Overall, this project underscores the potential of machine learning in transforming our understanding of music through data, opening avenues for deeper exploration into the analytics of sound.
