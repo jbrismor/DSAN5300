@@ -3266,7 +3266,7 @@ vertical-align: -.125em;
 <p>In this phase, we implemented two distinct strategies for our decade classification tasks. The first approach involved classifying the decades of all the music tracks that we had. The second strategy was aimed at identifying the decades of the tracks in just one genre in order to explore the differences with the previous approach. Each method utilized tailored datasets and features, appropriate for classifying decades either at the non genre specific level or the genre specific level, to achieve accurate decade categorization. The genre picked for this testing was “Rock”, since it accounted for the most tracks in our dataset.</p>
 <section id="data-setup-2" class="level3">
 <h3 class="anchored" data-anchor-id="data-setup-2">Data Setup</h3>
-<p>Since the data was imbalanced for different genres, we believed this could be an issue as different genres developed differently throughout the years. For that reason, we downsample to have the same amount of data during training for each genre.</p>
+<p>Since the data was imbalanced for different genres, we believed this could be an issue as different genres developed differently throughout the years. For that reason, we downsample to have the same amount of data during training for each genre. That way, we will be able to have an “unbiased” model that will not be skewed towards the most popular genres. We also created a new variable, ‘decade’, by binning song release dates, which was crucial for our subsequent temporal analysis.</p>
 </section>
 <section id="machine-learning-preparation-2" class="level3">
 <h3 class="anchored" data-anchor-id="machine-learning-preparation-2">Machine Learning Preparation</h3>
@@ -3319,7 +3319,7 @@ vertical-align: -.125em;
 </section>
 <section id="hyperparameter-tuning-2" class="level3">
 <h3 class="anchored" data-anchor-id="hyperparameter-tuning-2">Hyperparameter Tuning</h3>
-<p>We implemented a grid search to fine tune the model’s hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset. However, as seen above, this identification seemed to not work properly. This might be due to the close similarities between the tracks among different decades.</p>
+<p>We implemented a grid search to fine tune the model’s hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset. However, as seen above, this identification seemed to not work properly. This might be due to the close similarities between the tracks among different decades. While the models do not have a high accruacy, they clearly outperfom a random model which would have an accruacy of 12.5% (8 decades). Moreover, when utilized for a single genre, it seems that the models work better, which is interesting as it might suggest that different genres developed differently throughout the years.</p>
 </section>
 <section id="findings" class="level3">
 <h3 class="anchored" data-anchor-id="findings">Findings</h3>

@@ -174,7 +174,7 @@ In this phase, we implemented two distinct strategies for our decade classificat
 
 
 ### Data Setup
-Since the data was imbalanced for different genres, we believed this could be an issue as different genres developed differently throughout the years. For that reason, we downsample to have the same amount of data during training for each genre.
+Since the data was imbalanced for different genres, we believed this could be an issue as different genres developed differently throughout the years. For that reason, we downsample to have the same amount of data during training for each genre. That way, we will be able to have an "unbiased" model that will not be skewed towards the most popular genres. We also created a new variable, 'decade', by binning song release dates, which was crucial for our subsequent temporal analysis.
 
 
 ### Machine Learning Preparation
@@ -217,7 +217,7 @@ In this section of our project, we evaluated several machine learning models in 
 
 
 ### Hyperparameter Tuning
-We implemented a grid search to fine tune the model's hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset. However, as seen above, this identification seemed to not work properly. This might be due to the close similarities between the tracks among different decades.
+We implemented a grid search to fine tune the model's hyperparameters and optimize its performance. This was crucial in identifying the most effective model settings for our specific dataset. However, as seen above, this identification seemed to not work properly. This might be due to the close similarities between the tracks among different decades. While the models do not have a high accruacy, they clearly outperfom a random model which would have an accruacy of 12.5% (8 decades). Moreover, when utilized for a single genre, it seems that the models work better, which is interesting as it might suggest that different genres developed differently throughout the years.
 
 
 ### Findings
@@ -227,8 +227,7 @@ While the models do not seem to work very efficiently, it is worth looking into 
 ![](../images/decade_feature_importance.png)
 
 
-The Random Forest Classifier provides insights into which variables most significantly impact the determination of a track's decade, highlighting the notable changes over time.
-
+The Random Forest Classifier provides insights into which variables most significantly impact the determination of a track's decade, highlighting the notable changes over time. It is clear from the plot that Instrumentalness, tempo, liveness, key, major, and time signature are almost not relevant at predicting the decade of a track.This makes sense as these variables seem to be more linked to a genre rather than a decade.
 
 ### Conclusion
 Our findings show that metadata from tracks is not enough to predict the decade when they were released. However, it is worth noting that the models outperform a random classifier by a great amount. This is probably due to the slight changes overtime, but accuracy improves if the models just focus on one specific genre. This is interesting moving forward as different genres seem to have developed differently from each other over time. Thus, in future exploration, it will be worth exploring tracks from different genres separately.
