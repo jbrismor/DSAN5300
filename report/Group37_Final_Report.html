@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-04-22">
+<meta name="dcterms.date" content="2024-04-24">
 
 <title>Harmony Through Numbers: Classifying Spotify Data Across Genres and Decades</title>
 <style>
@@ -3013,7 +3013,12 @@ vertical-align: -.125em;
   <ul class="collapse">
   <li><a href="#data-setup-1" id="toc-data-setup-1" class="nav-link" data-scroll-target="#data-setup-1">Data Setup</a></li>
   <li><a href="#data-cleaning-and-preprocessing" id="toc-data-cleaning-and-preprocessing" class="nav-link" data-scroll-target="#data-cleaning-and-preprocessing">Data Cleaning and Preprocessing</a></li>
+  <li><a href="#integration-and-processing-of-genre-specific-data-1" id="toc-integration-and-processing-of-genre-specific-data-1" class="nav-link" data-scroll-target="#integration-and-processing-of-genre-specific-data-1">Integration and Processing of Genre-Specific Data</a></li>
+  <li><a href="#genre-classification-logic-1" id="toc-genre-classification-logic-1" class="nav-link" data-scroll-target="#genre-classification-logic-1">Genre Classification Logic</a></li>
+  <li><a href="#feature-engineering-and-data-integration-1" id="toc-feature-engineering-and-data-integration-1" class="nav-link" data-scroll-target="#feature-engineering-and-data-integration-1">Feature Engineering and Data Integration</a></li>
+  <li><a href="#machine-learning-preparation-1" id="toc-machine-learning-preparation-1" class="nav-link" data-scroll-target="#machine-learning-preparation-1">Machine Learning Preparation</a></li>
   <li><a href="#model-training-and-evaluation-1" id="toc-model-training-and-evaluation-1" class="nav-link" data-scroll-target="#model-training-and-evaluation-1">Model Training and Evaluation</a></li>
+  <li><a href="#hyperparameter-tuning-1" id="toc-hyperparameter-tuning-1" class="nav-link" data-scroll-target="#hyperparameter-tuning-1">Hyperparameter Tuning</a></li>
   <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">Conclusion</a></li>
   </ul></li>
   </ul></li>
@@ -3048,7 +3053,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 22, 2024</p>
+      <p class="date">April 24, 2024</p>
     </div>
   </div>
   
@@ -3116,7 +3121,7 @@ vertical-align: -.125em;
 </section>
 <section id="machine-learning-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="machine-learning-preparation">Machine Learning Preparation</h3>
-<p>We prepared our dataset for machine learning by splitting it into training and test sets—a standard practice to evaluate a model’s performance on unseen data. We also converted categorical variables into a numerical format using techniques such as one-hot encoding. These transformations are crucial for training machine learning models that require numerical input, setting the stage for robust model training.</p>
+<p>We prepared our dataset for machine learning by splitting it into training and test sets which is a standard practice to evaluate a model’s performance on unseen data. We also converted categorical variables into a numerical format using techniques such as one-hot encoding. These transformations are crucial for training machine learning models that require numerical input, setting the stage for robust model training.</p>
 </section>
 <section id="model-training-and-evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="model-training-and-evaluation">Model Training and Evaluation</h3>
@@ -3176,15 +3181,31 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="track-level-genre-classification">Track Level Genre Classification</h2>
 <section id="data-setup-1" class="level3">
 <h3 class="anchored" data-anchor-id="data-setup-1">Data Setup</h3>
-<p>In this initial phase, we loaded essential Python libraries necessary for our analysis: <code>numpy</code> for numerical operations and <code>pandas</code> for data manipulation. We then proceeded to load our primary dataset from <code>tracks.csv</code>, which encompasses detailed information about music tracks, including artist names and associated genres. A preliminary review of the dataset helped us understand its structure, critical for our downstream analysis.</p>
+<p>We imported necessary Python libraries such as <code>numpy</code> and <code>pandas</code>, essential for handling large datasets and numerical computations. The primary dataset, <code>tracks.csv</code>, was loaded into a pandas DataFrame. This dataset contains detailed attributes of music tracks such as danceability, energy, loudness, and other features that describe the audio characteristics of the tracks.</p>
 </section>
 <section id="data-cleaning-and-preprocessing" class="level3">
 <h3 class="anchored" data-anchor-id="data-cleaning-and-preprocessing">Data Cleaning and Preprocessing</h3>
-<p>Data quality is paramount, hence we performed rigorous cleaning and preprocessing of our dataset. This included handling missing values, particularly in the genre column, and removing anomalies. We adjusted data types for better computational efficiency and prepared categorical data for future machine learning processes.</p>
+<p>Initial data cleaning involved handling missing values, especially in the genre column, which is crucial for our classification task. We also discarded any data points considered irrelevant or redundant to avoid skewing our results and impairing our models’ efficiency. This cleaning step ensured a more focused and efficient dataset ready for the subsequent stages of our analysis.</p>
+</section>
+<section id="integration-and-processing-of-genre-specific-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="integration-and-processing-of-genre-specific-data-1">Integration and Processing of Genre-Specific Data</h3>
+<p>By integrating <code>genre_of_artists.csv</code> with our track data, we linked each track with its corresponding artist’s genre, thereby enriching our dataset with essential classification labels. This integration not only streamlined the data but also enriched it, providing a solid foundation for accurate genre classification.</p>
+</section>
+<section id="genre-classification-logic-1" class="level3">
+<h3 class="anchored" data-anchor-id="genre-classification-logic-1">Genre Classification Logic</h3>
+<p>The classification strategy revolved around the application of several machine learning models. Each model was evaluated based on its ability to accurately predict genres from track features. The logic also included strategies for handling multi-genre classifications and discrepancies in genre labeling.</p>
+</section>
+<section id="feature-engineering-and-data-integration-1" class="level3">
+<h3 class="anchored" data-anchor-id="feature-engineering-and-data-integration-1">Feature Engineering and Data Integration</h3>
+<p>We conducted feature engineering as well, which included encoding categorical variables, normalizing numerical values, and creating new features that could provide more insights into the genre classification. Features derived from the <code>key_mode</code> column, such as musical key and mode, were particularly significant, as these musical aspects are often strong indicators of genre.</p>
+</section>
+<section id="machine-learning-preparation-1" class="level3">
+<h3 class="anchored" data-anchor-id="machine-learning-preparation-1">Machine Learning Preparation</h3>
+<p>The prepared dataset was split into training and test sets to validate the effectiveness of the models. This step is critical in assessing how well our model performs on new unseen data and ensuring that we gauge its real-world applicability accurately.</p>
 </section>
 <section id="model-training-and-evaluation-1" class="level3">
 <h3 class="anchored" data-anchor-id="model-training-and-evaluation-1">Model Training and Evaluation</h3>
-<p>In this phase, we trained and evaluated several machine learning models to classify tracks into genres. Each model’s performance was assessed based on accuracy and computation time. Here is a summary of how each model performed:</p>
+<p>Here we trained and evaluated several machine learning models to classify tracks into genres. Each model’s performance was assessed based on accuracy and computation time. Below is a summary of how each model performed:</p>
 <section id="logistic-regression-1" class="level4">
 <h4 class="anchored" data-anchor-id="logistic-regression-1">Logistic Regression</h4>
 <ul>
@@ -3222,9 +3243,13 @@ vertical-align: -.125em;
 </ul>
 </section>
 </section>
+<section id="hyperparameter-tuning-1" class="level3">
+<h3 class="anchored" data-anchor-id="hyperparameter-tuning-1">Hyperparameter Tuning</h3>
+<p>We performed hyperparameter tuning using techniques like GridSearchCV to optimize each model’s performance. This process involved systematically testing different combinations of parameters to find the best setup for each model. The tuning was particularly crucial for complex models like Neural Networks and XGBoost, where the right combination of parameters can significantly impact the model’s effectiveness and efficiency.</p>
+</section>
 <section id="conclusion-1" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion-1">Conclusion</h3>
-<p>The track-level genre classification performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost.</p>
+<p>The track-level genre classification performed less optimally due to the inherent variability in songs by the same artist, peaking at 63% accuracy with XGBoost. This suggests that while machine learning can significantly aid in genre classification, the complex nature of music genres often requires more sophisticated models or multi-modal data integration to improve accuracy.</p>
 </section>
 </section>
 </section>
