@@ -232,6 +232,10 @@ Based on our project's findings and the challenges we encountered, we recommend 
 
 By addressing these recommendations, future projects can build on our work's foundation and push the boundaries of what's possible at the intersection of data science and music analysis.
 
+# Link to Github Repo
+
+[Here is a link to the github repo for our porject.](https://github.com/jbrismor/DSAN5300.git)
+
 # Music Jokes: For Nakul
 - Who's most likely to be struck by lightning in an orchestra? The conductor.
 - What happens when you drop a piano down a mining shaft? You get A flat minor.
