@@ -143,24 +143,24 @@ Here we trained and evaluated several machine learning models to classify tracks
 
 #### Logistic Regression
 - **Test Accuracy**: 51.38%
-- **Computation Time**: 6 minutes 3.89 seconds
+- **Computation Time**: 6m 3.89s
 
 #### Support Vector Machine (SVM)
 - **Test Accuracy**: 54.89%
-- **Computation Time**: 80 minutes 4.4 seconds
+- **Computation Time**: 80m 4.4s
 
 #### Neural Network
 - **Train Accuracy**: 54.45%
 - **Test Accuracy**: 49.18%
-- **Computation Time**: Approximately 44 minutes
+- **Computation Time**: 44m
 
 #### Random Forest
 - **Test Accuracy**: 61.68%
-- **Computation Time**: 46 minutes 49.8 seconds
+- **Computation Time**: 46m 49.8s
 
 #### XGBoost
 - **Test Accuracy**: 63.03%
-- **Computation Time**: 2 minutes 51.4 seconds
+- **Computation Time**: 2m 51.4s
 
 ### Hyperparameter Tuning
 
@@ -182,38 +182,35 @@ Same as with genre classification, we prepared our dataset for machine learning 
 
 
 ### Model Training and Evaluation
-In this section of our project, we evaluated several machine learning models in order to determine the most effective approach for classifying decades when music tracks were released based on the track metadata. Each model was assessed based on its accuracy and computation time which are both crucial factors in practical applications. Below is a summary of the outcomes for each model:
+In this section of our project, we evaluated several machine learning models in order to determine the most effective approach for classifying decades when music tracks were released based on the track metadata. Each model was assessed based on its accuracy and computation time which are both crucial factors in practical applications. Below is a summary of the outcomes for each model (first value is for the non genre specific model and the second value is for the genre specific model):
 
 
 #### Logistic Regression
-- **Test Accuracy**:%
-- **Computation Time**: 
-- **Comments**: 
+- **Test Accuracy**: 31.03% | 32.55%
+- **Computation Time**: 3m 57.9s | 2m 14.4s
 
 
 #### Support Vector Machine (SVM)
-- **Test Accuracy**:%
-- **Computation Time**: 
-- **Comments**: 
+- **Test Accuracy**: 29.94% | 31.12%
+- **Computation Time**: 16m 48.9s |  6m 59.6s
 
 
 #### Neural Network
-- **Train Accuracy**:%
-- **Test Accuracy**:%
-- **Computation Time**: 
-- **Comments**: 
+- **Train Accuracy**: 33.72% | 41.03%
+- **Test Accuracy**: 22.06% | 28.60%
+- **Computation Time**: 9m 49.3s | 12m 21.0s
 
 
 #### Random Forest
-- **Test Accuracy**:%
-- **Computation Time**: 
-- **Comments**: 
+- **Test Accuracy**: 37.85% | 43.33%
+- **Computation Time**: 18m 16.1s | 9m 41.7s
 
 
 #### XGBoost
-- **Test Accuracy**:%
-- **Computation Time**: 
-- **Comments**: 
+- **Test Accuracy**: 37.24% | 43.99%
+- **Computation Time**: 2m 27.7s | 2m 14.0s
+
+As we can see, all the models perform better for the genre specific dataset, which is interesting and suggests that changes affected differently to distinct genres overtime.
 
 
 ### Hyperparameter Tuning
