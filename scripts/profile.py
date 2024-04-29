@@ -34,7 +34,7 @@ for file_path in file_list:
     # Calculate the mode for the specified mode columns
     modes = data[mode_columns].mode().iloc[0]
 
-    # Get the artist name and ID (assuming these are the same for all rows in the file)
+    # Get the artist name and ID
     artist_info = data.iloc[0][["artist_name", "artist_id"]]
     
     # Combine the means, modes, and the artist info into a dataframe
